@@ -45,6 +45,15 @@ namespace NbaAPI.Services
             return updatedTeam;
         }
 
+        public TeamModel MoveOnTeam(int teamId, string newCity)
+        {
+            ExistTeam(teamId);
+            var team = GetTeam(teamId);
+            team.City = newCity;
+            var updatedTeam = _nbaRepository.UpdateTeam(teamId, team);
+            return updatedTeam;
+        }
+
         public void DeleteTeam(int teamId)
         {
             ExistTeam(teamId);

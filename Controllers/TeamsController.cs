@@ -113,6 +113,26 @@ namespace NbaAPI.Controllers
             return response;
         }
 
+        [HttpPut("{teamId:int}/moveon")]
+        public ActionResult<TeamModel> MoveOnTeam(int teamId,string newCity)
+        {
+            ActionResult<TeamModel> response;
+            try
+            {
+                var movedTeam = _teamService.MoveOnTeam(teamId, newCity);
+                response = Ok(movedTeam);
+            }
+            catch (NotFoundElementException ex)
+            {
+                response = BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                response = StatusCode(StatusCodes.Status500InternalServerError, "General exception: Something happened");
+            }
+            return response;
+        }
+
         [HttpDelete("{teamId:int}")]
         public ActionResult DeleteTeam(int teamId)
         {

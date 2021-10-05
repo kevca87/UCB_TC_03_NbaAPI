@@ -13,5 +13,6 @@ namespace NbaAPI.Services
         TeamModel CreateTeam(TeamModel team);
         TeamModel UpdateTeam(int teamId,TeamModel team);
         void DeleteTeam(int teamId);
+        public TeamModel MoveOnTeam(int teamId, string newCity);
     }
 }
