@@ -8,7 +8,7 @@ namespace NbaAPI.Services
 {
     public interface ITeamService
     {
-        IEnumerable<TeamModel> GetTeams();
+        IEnumerable<TeamModel> GetTeams(string orderBy);
         TeamModel GetTeam(int teamId);
         TeamModel CreateTeam(TeamModel team);
         TeamModel UpdateTeam(int teamId,TeamModel team);

@@ -1,4 +1,5 @@
-﻿using NbaAPI.Exceptions;
+﻿using NbaAPI.Data.Repository;
+using NbaAPI.Exceptions;
 using NbaAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -9,72 +10,52 @@ namespace NbaAPI.Services
 {
     public class TeamService : ITeamService
     {
-        private IList<TeamModel> _teams;
-        public TeamService()
+        private INbaRepository _nbaRepository;
+        private HashSet<string> _allowedSortValues = new HashSet<string> { "id", "name", "abb" };
+
+        public TeamService(INbaRepository nbaRepository)
         {
-            _teams = new List<TeamModel>();
-            _teams.Add(new TeamModel()
-            {
-                Id = 1,
-                Abb = "GSW",
-                Arena = "Chase Center",
-                City = "Golden State",
-                Name = "Warriors",
-                CoachName = "Steve Kerr",
-                Founded = new DateTime(1946,1,1)
-            });
-            _teams.Add(new TeamModel()
-            {
-                Id = 2,
-                Abb = "BOS",
-                Arena = "TD Garden",
-                City = "Boston",
-                Name = "Celtics",
-                CoachName = "Ime Udoka",
-                Founded = new DateTime(1946, 1, 1)
-            });
+            _nbaRepository = nbaRepository;
         }
-        public IEnumerable<TeamModel> GetTeams()
+        public IEnumerable<TeamModel> GetTeams(string orderBy)
         {
-            return _teams;
+            if (!_allowedSortValues.Contains(orderBy.ToLower()))
+                throw new InvalidElementOperationException($"Invalid orderBy value : {orderBy}. The allowed values for param are: {string.Join(',', _allowedSortValues)}");
+            var teams = _nbaRepository.GetTeams(orderBy);
+            return teams;
         }
         public TeamModel GetTeam(int teamId)
         {
-            var team = _teams.SingleOrDefault(t => t.Id == teamId);
+            var team = _nbaRepository.GetTeam(teamId);
             if (team == null)
-                throw new NotFoundElementException($"the team with id: {teamId} does not exists.");
+                throw new NotFoundElementException($"The team with id: {teamId} does not exists.");
             return team;
         }
 
         public TeamModel CreateTeam(TeamModel team)
         {
-            var lastTeam = _teams.OrderByDescending(t => t.Id).FirstOrDefault();
-            int nextId = lastTeam != null ? lastTeam.Id + 1 : 1;
-            team.Id = nextId;
-            _teams.Add(team);
-            return team;
+            var createdTeam = _nbaRepository.CreateTeam(team);
+            return createdTeam;
         }
 
         public TeamModel UpdateTeam(int teamId, TeamModel team)
         {
-            var teamToUpdate = _teams.SingleOrDefault(t => t.Id == teamId);
-            if (teamToUpdate == null)
-                throw new NotFoundElementException($"the team with id: {teamId} does not exists.");
-            teamToUpdate.Name = team.Name ?? teamToUpdate.Name;
-            teamToUpdate.City = team.City ?? teamToUpdate.City;
-            teamToUpdate.Founded = team.Founded ?? teamToUpdate.Founded;
-            teamToUpdate.Abb = team.Abb ?? teamToUpdate.Abb;
-            teamToUpdate.Arena = team.Arena ?? teamToUpdate.Arena;
-            teamToUpdate.CoachName = team.CoachName ?? teamToUpdate.CoachName;
-            return teamToUpdate;
+            ExistTeam(teamId);
+            var updatedTeam = _nbaRepository.UpdateTeam(teamId,team);
+            return updatedTeam;
         }
 
         public void DeleteTeam(int teamId)
         {
-            var team = _teams.SingleOrDefault(t => t.Id == teamId);
+            ExistTeam(teamId);
+            _nbaRepository.DeleteTeam(teamId);
+        }
+
+        public void ExistTeam(int teamId)
+        {
+            var team = _nbaRepository.GetTeam(teamId);
             if (team == null)
                 throw new NotFoundElementException($"the team with id: {teamId} does not exists.");
-            _teams.Remove(team);
         }
     }
 }

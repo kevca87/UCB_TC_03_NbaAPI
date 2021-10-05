@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NbaAPI.Data.Repository;
 using NbaAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,8 @@ namespace NbaAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<ITeamService, TeamService>();
+            services.AddTransient<ITeamService, TeamService>();
+            services.AddSingleton<INbaRepository, NbaRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

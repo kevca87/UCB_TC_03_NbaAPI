@@ -19,10 +19,23 @@ namespace NbaAPI.Controllers
             _teamService = teamService;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<TeamModel>> GetTeams()
+        public ActionResult<IEnumerable<TeamModel>> GetTeams(string orderBy = "id")
         {
-            var teams = _teamService.GetTeams();
-            return Ok(teams);
+            ActionResult<IEnumerable<TeamModel>> response;
+            try
+            {
+                var teams = _teamService.GetTeams(orderBy);
+                response = Ok(teams);
+            }
+            catch (InvalidElementOperationException ex)
+            {
+                response = BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                response = StatusCode(StatusCodes.Status500InternalServerError, "General exception: Something happened");
+            }
+            return response;
         }
 
         [HttpGet("{id:int}")]
@@ -71,17 +84,22 @@ namespace NbaAPI.Controllers
         }
 
         [HttpPut("{teamId:int}")]
-        public ActionResult<TeamModel> PostTeam(int teamId,[FromBody] TeamModel team)
+        public ActionResult<TeamModel> UpdateTeam(int teamId,[FromBody] TeamModel team)
         {
             ActionResult<TeamModel> response;
             try
             {
-                if (!ModelState.IsValid)
+                bool ExistInvalidFields = (team.Name != null && ModelState.ContainsKey("name") && ModelState["name"].Errors.Count > 0)
+                                       || (team.City != null && ModelState.ContainsKey("city") && ModelState["city"].Errors.Count > 0)
+                                       || (team.Abb != null && ModelState.ContainsKey("abb") && ModelState["abb"].Errors.Count > 0);
+                if (!ModelState.IsValid && ExistInvalidFields)
+                {
                     response = BadRequest(ModelState);
+                }
                 else
                 {
                     var updatedTeam = _teamService.UpdateTeam(teamId, team);
-                    response = Created($"/api/v1/teams/{updatedTeam.Id}", updatedTeam);
+                    response = Ok(updatedTeam);
                 }
             }
             catch (NotFoundElementException ex)
@@ -96,9 +114,9 @@ namespace NbaAPI.Controllers
         }
 
         [HttpDelete("{teamId:int}")]
-        public ActionResult<TeamModel> DeleteTeam(int teamId)
+        public ActionResult DeleteTeam(int teamId)
         {
-            ActionResult<TeamModel> response;
+            ActionResult response;
             try
             {
                 _teamService.DeleteTeam(teamId);

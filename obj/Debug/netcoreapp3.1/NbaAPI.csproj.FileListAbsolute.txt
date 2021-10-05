@@ -19,3 +19,6 @@ C:\Users\Kevin\Documents\University\TW_Tecnologias_web\03_NbaAPI\NbaAPI\NbaAPI\o
 C:\Users\Kevin\Documents\University\TW_Tecnologias_web\03_NbaAPI\NbaAPI\NbaAPI\obj\Debug\netcoreapp3.1\NbaAPI.dll
 C:\Users\Kevin\Documents\University\TW_Tecnologias_web\03_NbaAPI\NbaAPI\NbaAPI\obj\Debug\netcoreapp3.1\NbaAPI.pdb
 C:\Users\Kevin\Documents\University\TW_Tecnologias_web\03_NbaAPI\NbaAPI\NbaAPI\obj\Debug\netcoreapp3.1\NbaAPI.genruntimeconfig.cache
+C:\Users\Kevin\Documents\University\TW_Tecnologias_web\03_NbaAPI\NbaAPI\NbaAPI\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\Kevin\Documents\University\TW_Tecnologias_web\03_NbaAPI\NbaAPI\NbaAPI\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\Kevin\Documents\University\TW_Tecnologias_web\03_NbaAPI\NbaAPI\NbaAPI\obj\Debug\netcoreapp3.1\NbaAPI.csproj.CopyComplete

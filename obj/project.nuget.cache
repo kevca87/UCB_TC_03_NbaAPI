@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "BxF6DsRLw3cXGEzbOJAEs3GZH2YPPc3+j0Hc2hsKBEmAXFSDU37FQmcRVBCVxmsHxH9tDgrsPrAhzypO+JL30A==",
+  "dgSpecHash": "hn+h1/uh3b42F+roilXXyHtCPpJ838AxxBWzU+dL3VudafWiBWUyQMezTll80cQkSnemWQPeoJbOu1UWTRM2mg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Kevin\\Documents\\University\\TW_Tecnologias_web\\03_NbaAPI\\NbaAPI\\NbaAPI\\NbaAPI.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Kevin\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\Kevin\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
+    "C:\\Users\\Kevin\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Kevin\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.0.0\\microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512",
+    "C:\\Users\\Kevin\\.nuget\\packages\\microsoft.extensions.options\\3.0.0\\microsoft.extensions.options.3.0.0.nupkg.sha512",
+    "C:\\Users\\Kevin\\.nuget\\packages\\microsoft.extensions.primitives\\3.0.0\\microsoft.extensions.primitives.3.0.0.nupkg.sha512",
+    "C:\\Users\\Kevin\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }
