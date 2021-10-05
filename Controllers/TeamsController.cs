@@ -106,6 +106,10 @@ namespace NbaAPI.Controllers
             {
                 response = BadRequest(ex.Message);
             }
+            catch (InvalidElementOperationException ex)
+            {
+                response = BadRequest(ex.Message);
+            }
             catch (Exception)
             {
                 response = StatusCode(StatusCodes.Status500InternalServerError, "General exception: Something happened");
@@ -123,6 +127,34 @@ namespace NbaAPI.Controllers
                 response = Ok(movedTeam);
             }
             catch (NotFoundElementException ex)
+            {
+                response = BadRequest(ex.Message);
+            }
+            catch (InvalidElementOperationException ex)
+            {
+                response = BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                response = StatusCode(StatusCodes.Status500InternalServerError, "General exception: Something happened");
+            }
+            return response;
+        }
+
+        [HttpPut("{teamId:int}/winagainst")]
+        public ActionResult<TeamModel> RecordUpdate(int teamId, int rivalId)
+        {
+            ActionResult<TeamModel> response;
+            try
+            {
+                var updatedTeams = _teamService.RecordUpdate(teamId, rivalId);
+                response = Ok(updatedTeams);
+            }
+            catch (NotFoundElementException ex)
+            {
+                response = BadRequest(ex.Message);
+            }
+            catch (InvalidElementOperationException ex)
             {
                 response = BadRequest(ex.Message);
             }

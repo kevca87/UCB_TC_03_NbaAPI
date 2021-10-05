@@ -18,5 +18,8 @@ namespace NbaAPI.Models
         public string Arena { get; set; }
         public DateTime? Founded { get; set; }
         public string CoachName { get; set; }
+        public int Season_wins { get; set; }
+        public int Season_loses { get; set; }
+
     }
 }

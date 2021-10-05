@@ -64,7 +64,23 @@ namespace NbaAPI.Services
         {
             var team = _nbaRepository.GetTeam(teamId);
             if (team == null)
-                throw new NotFoundElementException($"the team with id: {teamId} does not exists.");
+                throw new NotFoundElementException($"The team with id: {teamId} does not exists.");
+        }
+
+        public IEnumerable<TeamModel> RecordUpdate(int teamId, int rivalId)
+        {
+            if (teamId == rivalId)
+                throw new InvalidElementOperationException($"The team {teamId} can not confront themselves.");
+            var teamA = GetTeam(teamId);//If dont exist that throw exc
+            var teamB = GetTeam(rivalId);
+            teamA.Season_wins++;
+            teamB.Season_loses++;
+            UpdateTeam(teamId,teamA);
+            UpdateTeam(rivalId,teamB);
+            var updTeams = new List<TeamModel>();
+            updTeams.Add(teamA);
+            updTeams.Add(teamB);
+            return updTeams;
         }
     }
 }

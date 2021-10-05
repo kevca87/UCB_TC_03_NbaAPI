@@ -145,6 +145,33 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "MoveOnTeam",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/teams/2/moveon?newcity=Seatle",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"teams",
+						"2",
+						"moveon"
+					],
+					"query": [
+						{
+							"key": "newcity",
+							"value": "Seatle"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
