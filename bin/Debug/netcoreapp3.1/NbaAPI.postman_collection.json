@@ -127,6 +127,35 @@
 			"response": []
 		},
 		{
+			"name": "UpdateTeamNotMoreWins",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"season_wins\":1,\r\n    \"coachName\": \"Brad Stevens\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/teams/2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"teams",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "DeleteTeam",
 			"request": {
 				"method": "DELETE",
@@ -167,6 +196,60 @@
 						{
 							"key": "newcity",
 							"value": "Seatle"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TeamWinAgainstAssertFail",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/teams/2/winagainst?rivalId=2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"teams",
+						"2",
+						"winagainst"
+					],
+					"query": [
+						{
+							"key": "rivalId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TeamWinAgainstTeamB",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/teams/2/winagainst?rivalid=1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"teams",
+						"2",
+						"winagainst"
+					],
+					"query": [
+						{
+							"key": "rivalid",
+							"value": "1"
 						}
 					]
 				}
